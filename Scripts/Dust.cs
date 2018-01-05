@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +10,7 @@ public class Dust : MonoBehaviour
 
     private AnimatorStateInfo _stateInfo;
 
-	void Start ()
-    {
-        
-	}
+    public event Action OnFinish;
 
     void Update ()
     {
@@ -20,7 +18,10 @@ public class Dust : MonoBehaviour
 
         if (_stateInfo.normalizedTime >= 1f)
         {
-            Destroy(this.gameObject);
+            if(OnFinish != null)
+            {
+                OnFinish();
+            }
         }
     }
 }
